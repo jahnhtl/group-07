@@ -15,7 +15,10 @@ int IN2 = 8;
 int IN3 = 9;
 int IN4 = 10;
 int enb = 11;
+int sensor_pin = A5;
+int sensor_value = 0;
 bool program_state = false;
+
 void setup(){
   // Set the output pins
   pinMode(ena, OUTPUT);
@@ -40,15 +43,15 @@ void loop(){
     if(!program_state) {
       continue;
     }
-    
+    sensor_value = analogRead(sensor_pin) / 4;
     // Rotate the Motor A clockwise
     digitalWrite(IN1, LOW);
     digitalWrite(IN2, HIGH);
-    digitalWrite(ena, HIGH);
-
+    analogWrite(ena, sensor_value);
+    
     digitalWrite(IN3, LOW);
     digitalWrite(IN4, HIGH);
-    digitalWrite(enb, HIGH);
+    analogWrite(enb, sensor_value);
     
     /*delay(500);
     // Motor A
